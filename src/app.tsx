@@ -18,7 +18,9 @@ const rootRoute = createRootRoute({
   component: () => (
     <Layout>
       <Sidebar />
-      <Outlet />
+      <main>
+        <Outlet />
+      </main>
     </Layout>
   ),
 });

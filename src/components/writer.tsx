@@ -119,7 +119,7 @@ export function Writer() {
     } catch (e) {}
   }
   return (
-    <main>
+    <>
       <header>
         {new Date().toLocaleString(undefined, {
           month: "long",
@@ -167,6 +167,6 @@ export function Writer() {
           <div />
         </div>
       </section>
-    </main>
+    </>
   );
 }

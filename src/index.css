@@ -11,7 +11,7 @@
   font-style: normal;
   font-weight: 100 900;
   font-display: block;
-  src: url("/public/fonts/GeistMono-Black.woff2") format("woff2");
+  src: url("/fonts/GeistMono-Black.woff2") format("woff2");
 }
 
 *,
@@ -34,6 +34,7 @@ html,
 body {
   margin: 0;
   height: 100%;
+  width: 100%;
   font-family: var(--font);
   -moz-osx-font-smoothing: grayscale;
   -webkit-font-smoothing: antialiased;
@@ -49,12 +50,28 @@ body {
 }
 
 /* App styles */
-main {
-  position: relative;
+
+.layout {
+  display: flex;
+  flex-direction: row;
   width: 100%;
-  max-width: 59vw;
+  height: 100%;
+}
+
+.sidebar {
+  width: 20%;
+  height: 100%;
+  padding: 50px;
+  background: var(--bg);
+  color: var(--fg);
+  overflow-y: auto;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+main {
+  width: 80%;
+  height: 100%;
   margin: auto;
-  padding-bottom: var(--line-height);
 }
 
 section {
@@ -101,25 +118,6 @@ header {
   margin-bottom: 16px;
 }
 
-.layout {
-  width: 100%;
-  height: 100%;
-  padding: 50px;
-}
-
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 20%;
-  height: 100%;
-  padding: 50px;
-  background: var(--bg);
-  color: var(--fg);
-  overflow-y: auto;
-  border-right: 1px solid rgba(255, 255, 255, 0.1);
-}
-
 .stats {
   font-size: 14px;
   color: var(--placeholder);
@@ -132,11 +130,34 @@ header {
   margin-bottom: 16px;
 }
 
+.practice-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+}
+
 .practice {
-  font-size: 14px;
+  font-size: 20px;
+  font-color: #00bfff;
+  padding-left: 20px;
+  padding-right: 20px;
   color: var(--placeholder);
   margin-bottom: 16px;
+  letter-spacing: 0.5px;
 }
+
+.timer {
+  font-size: 20px;
+  color: var(--placeholder);
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+}
+
 .overlay {
   position: absolute;
   top: 0;

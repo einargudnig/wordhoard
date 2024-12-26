@@ -4,7 +4,7 @@ export function Sidebar() {
   return (
     <div className="sidebar">
       <div>
-        <h1>WordHoard</h1>
+        <h3>WordHoard</h3>
         <Link to="/writer">
           <p>Writer</p>
         </Link>
