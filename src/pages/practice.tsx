@@ -1,22 +1,42 @@
 import { delay, motion } from "motion/react";
-import { faker } from "@faker-js/faker";
 import React from "react";
-import { formatPercentage } from "../utils/helper";
+import { calculateAccuracyPercentage, formatPercentage } from "../utils/helper";
+import useEngine, { State } from "../hooks/useEngine";
 
 export function Practice() {
   console.log("Practice route");
-
-  const words = faker.word.words(10);
-  const time = 30;
+  const { words, typed, timeLeft, errors, state, restart, totalTyped } =
+    useEngine();
   return (
     <div className="practice-container">
       <h3>Practice</h3>
 
-      <Timer timeLeft={time} />
-      <div className="practice">{words}</div>
+      <Timer timeLeft={timeLeft} />
+      <div className="practice-overlay">
+        <div className="practice">{words}</div>
+        <UserTypings userInputs={typed} />
+      </div>
       <Restart onRestart={() => null} />
-      <Results errors={1} accuracyPercentage={99} total={8} />
+      <Results
+        state={state}
+        errors={errors}
+        accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped)}
+        total={totalTyped}
+      />
     </div>
+  );
+}
+
+function Caret() {
+  return (
+    <motion.div
+      className="caret"
+      aria-hidden={true}
+      initial={{ opacity: 1 }}
+      animate={{ opacity: 0 }}
+      exit={{ opacity: 1 }}
+      transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
+    />
   );
 }
 
@@ -46,14 +66,20 @@ function Restart({ onRestart: handleRestart }: { onRestart: () => void }) {
 }
 
 function Results({
+  state,
   errors,
   accuracyPercentage,
   total,
 }: {
+  state: State;
   errors: number;
   accuracyPercentage: number;
   total: number;
 }) {
+  if (state !== "finish") {
+    return null;
+  }
+
   const initial = { opacity: 0 };
   const animate = { opacity: 1 };
   const duration = { duration: 0.3 };
@@ -83,4 +109,21 @@ function Results({
       </motion.p>
     </motion.div>
   );
+}
+
+function UserTypings({ userInputs }: { userInputs: string }) {
+  const typedCharacters = userInputs.split("");
+
+  return (
+    <div className="user-typings">
+      {typedCharacters.map((char, index) => {
+        return <Character key={`${char}_${index}`} char={char} />;
+      })}
+      <Caret />
+    </div>
+  );
+}
+
+function Character({ char }: { char: string }) {
+  return <span className="char">{char}</span>;
 }
