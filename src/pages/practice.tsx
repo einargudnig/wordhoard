@@ -4,7 +4,6 @@ import { calculateAccuracyPercentage, formatPercentage } from "../utils/helper";
 import useEngine, { State } from "../hooks/useEngine";
 
 export function Practice() {
-  console.log("Practice route");
   const { words, typed, timeLeft, errors, state, restart, totalTyped } =
     useEngine();
   return (
@@ -14,7 +13,7 @@ export function Practice() {
       <Timer timeLeft={timeLeft} />
       <div className="practice-overlay">
         <div className="practice">{words}</div>
-        <UserTypings userInputs={typed} />
+        <UserTypings userInputs={typed} words={words} />
       </div>
       <Restart onRestart={() => null} />
       <Results
@@ -111,19 +110,44 @@ function Results({
   );
 }
 
-function UserTypings({ userInputs }: { userInputs: string }) {
+function UserTypings({
+  userInputs,
+  words,
+}: {
+  userInputs: string;
+  words: string;
+}) {
   const typedCharacters = userInputs.split("");
 
   return (
     <div className="user-typings">
       {typedCharacters.map((char, index) => {
-        return <Character key={`${char}_${index}`} char={char} />;
+        return (
+          <Character
+            key={`${char}_${index}`}
+            actual={char}
+            expected={words[index]}
+          />
+        );
       })}
       <Caret />
     </div>
   );
 }
 
-function Character({ char }: { char: string }) {
-  return <span className="char">{char}</span>;
+function Character({ actual, expected }: { actual: string; expected: string }) {
+  const isCorrect = actual === expected;
+  const isWhiteSpace = expected === " ";
+
+  let className = "";
+
+  if (!isCorrect && !isWhiteSpace) {
+    className = "text-red-500";
+  } else if (isCorrect && !isWhiteSpace) {
+    className = "text-primary-400";
+  } else if (!isCorrect && isWhiteSpace) {
+    className = "bg-red-500-50";
+  }
+
+  return <span className={className}>{expected}</span>;
 }

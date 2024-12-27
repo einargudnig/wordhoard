@@ -165,12 +165,23 @@ header {
 }
 
 .caret {
-  position: absolute;
   display: inline-block;
   inset: 0;
   width: 2px;
-  height: 26px;
+  height: 20px;
   background: #ffff00;
+}
+
+.text-red-500 {
+  color: #ef4444; /* Tailwind's red-500 color */
+}
+
+.text-primary-400 {
+  color: #60a5fa; /* Example primary-400 color, adjust to your primary color */
+}
+
+.bg-red-500-50 {
+  background-color: rgba(239, 68, 68, 0.5); /* 50% opacity of red-500 */
 }
 
 .timer {
