@@ -1,4 +1,4 @@
-import { delay, motion } from "motion/react";
+import { motion } from "motion/react";
 import React from "react";
 import { calculateAccuracyPercentage, formatPercentage } from "../utils/helper";
 import useEngine, { State } from "../hooks/useEngine";
@@ -15,7 +15,7 @@ export function Practice() {
         <div className="practice">{words}</div>
         <UserTypings userInputs={typed} words={words} />
       </div>
-      <Restart onRestart={() => null} />
+      <Restart onRestart={restart} />
       <Results
         state={state}
         errors={errors}
@@ -39,7 +39,7 @@ function Caret() {
   );
 }
 
-function Timer({ timeLeft }) {
+function Timer({ timeLeft }: { timeLeft: number }) {
   return (
     <div className="timer">
       <p>Time:</p>
