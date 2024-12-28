@@ -1,7 +1,11 @@
-import { motion } from "motion/react";
-import React from "react";
-import { calculateAccuracyPercentage, formatPercentage } from "../utils/helper";
-import useEngine, { State } from "../hooks/useEngine";
+import { calculateAccuracyPercentage } from "../utils/helper";
+import useEngine from "../hooks/useEngine";
+import { Timer } from "../components/typing-practice/timer";
+import { UserTypings } from "../components/typing-practice/user-typings";
+import { Restart } from "../components/typing-practice/restart-button";
+import { Results } from "../components/typing-practice/results";
+import { Words } from "../components/typing-practice/words";
+import { TypePracticeLayout } from "../components/typing-practice/typing-practice-layout";
 
 export function Practice() {
   const { words, typed, timeLeft, errors, state, restart, totalTyped } =
@@ -11,10 +15,10 @@ export function Practice() {
       <h3>Practice</h3>
 
       <Timer timeLeft={timeLeft} />
-      <div className="practice-overlay">
-        <div className="practice">{words}</div>
+      <TypePracticeLayout>
+        <Words words={words} />
         <UserTypings userInputs={typed} words={words} />
-      </div>
+      </TypePracticeLayout>
       <Restart onRestart={restart} />
       <Results
         state={state}
@@ -24,130 +28,4 @@ export function Practice() {
       />
     </div>
   );
-}
-
-function Caret() {
-  return (
-    <motion.div
-      className="caret"
-      aria-hidden={true}
-      initial={{ opacity: 1 }}
-      animate={{ opacity: 0 }}
-      exit={{ opacity: 1 }}
-      transition={{ repeat: Infinity, duration: 0.8, ease: "easeInOut" }}
-    />
-  );
-}
-
-function Timer({ timeLeft }: { timeLeft: number }) {
-  return (
-    <div className="timer">
-      <p>Time:</p>
-      {timeLeft}
-    </div>
-  );
-}
-
-function Restart({ onRestart: handleRestart }: { onRestart: () => void }) {
-  const buttonRef = React.useRef<HTMLButtonElement>(null);
-
-  const handleClick = () => {
-    buttonRef.current?.blur();
-    console.log("Restart!");
-    handleRestart();
-  };
-
-  return (
-    <button ref={buttonRef} onClick={handleClick}>
-      Restart
-    </button>
-  );
-}
-
-function Results({
-  state,
-  errors,
-  accuracyPercentage,
-  total,
-}: {
-  state: State;
-  errors: number;
-  accuracyPercentage: number;
-  total: number;
-}) {
-  if (state !== "finish") {
-    return null;
-  }
-
-  const initial = { opacity: 0 };
-  const animate = { opacity: 1 };
-  const duration = { duration: 0.3 };
-
-  return (
-    <motion.div className="results">
-      <motion.p
-        initial={initial}
-        animate={animate}
-        transition={{ ...duration, delay: 0.5 }}
-      >
-        Errors: {errors}
-      </motion.p>
-      <motion.p
-        initial={initial}
-        animate={animate}
-        transition={{ ...duration, delay: 1 }}
-      >
-        Accuracy: {formatPercentage(accuracyPercentage)}%
-      </motion.p>
-      <motion.p
-        initial={initial}
-        animate={animate}
-        transition={{ ...duration, delay: 1.4 }}
-      >
-        Total: {total}
-      </motion.p>
-    </motion.div>
-  );
-}
-
-function UserTypings({
-  userInputs,
-  words,
-}: {
-  userInputs: string;
-  words: string;
-}) {
-  const typedCharacters = userInputs.split("");
-
-  return (
-    <div className="user-typings">
-      {typedCharacters.map((char, index) => {
-        return (
-          <Character
-            key={`${char}_${index}`}
-            actual={char}
-            expected={words[index]}
-          />
-        );
-      })}
-      <Caret />
-    </div>
-  );
-}
-
-function Character({ actual, expected }: { actual: string; expected: string }) {
-  const isCorrect = actual === expected;
-  const isWhiteSpace = expected === " ";
-
-  let className = "";
-
-  if (!isCorrect && !isWhiteSpace) {
-    className = "text-red-500";
-  } else if (isCorrect && !isWhiteSpace) {
-    className = "text-primary-400";
-  } else if (!isCorrect && isWhiteSpace) {
-    className = "bg-red-500-50";
-  }
-
-  return <span className={className}>{expected}</span>;
 }
