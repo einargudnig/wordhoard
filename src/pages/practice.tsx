@@ -6,6 +6,7 @@ import { Restart } from "../components/typing-practice/restart-button";
 import { Results } from "../components/typing-practice/results";
 import { Words } from "../components/typing-practice/words";
 import { TypePracticeLayout } from "../components/typing-practice/typing-practice-layout";
+import { Resources } from "../components/typing-practice/resources";
 
 export function Practice() {
   const { words, typed, timeLeft, errors, state, restart, totalTyped } =
@@ -26,6 +27,7 @@ export function Practice() {
         accuracyPercentage={calculateAccuracyPercentage(errors, totalTyped)}
         total={totalTyped}
       />
+      <Resources />
     </div>
   );
 }
