@@ -8,12 +8,12 @@ export function Sidebar() {
         <Link to="/writer">
           <p>Writer</p>
         </Link>
-        <Link to="/stats">
-          <p>Stats</p>
-        </Link>
         <Link to="/practice">
           <p>Practice</p>
         </Link>
+        {/* <Link to="/stats"> */}
+        {/*   <p>Stats</p> */}
+        {/* </Link> */}
         <Link to="/settings">
           <p>Settings</p>
         </Link>
