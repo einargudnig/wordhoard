@@ -2,6 +2,7 @@ import * as React from "react";
 import { flushSync } from "react-dom";
 
 export function Writer() {
+  console.log("Writer route");
   // Generate a unique storage key for each day
   const storageKey = React.useMemo(() => {
     const date = new Date();

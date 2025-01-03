@@ -14,17 +14,17 @@ export function Practice() {
     <div className="practice-route">
       <div className="practice-header">
         <h3>Practice</h3>
-        <p>
-          Practicing your typing can significantly enhance your productivity and
-          communication skills. By dedicating regular time to typing exercises,
-          you can improve your speed and accuracy, making everyday computer
-          tasks more efficient. Start with basic exercises to familiarize
-          yourself with the keyboard layout, and gradually increase complexity
-          by incorporating typing games and speed tests. Consistency is key;
-          even short daily sessions can lead to substantial improvements over
-          time. Additionally, maintaining proper posture and hand positioning
-          can prevent strain and increase comfort while typing.
-        </p>
+        {/* <p> */}
+        {/*   Practicing your typing can significantly enhance your productivity and */}
+        {/*   communication skills. By dedicating regular time to typing exercises, */}
+        {/*   you can improve your speed and accuracy, making everyday computer */}
+        {/*   tasks more efficient. Start with basic exercises to familiarize */}
+        {/*   yourself with the keyboard layout, and gradually increase complexity */}
+        {/*   by incorporating typing games and speed tests. Consistency is key; */}
+        {/*   even short daily sessions can lead to substantial improvements over */}
+        {/*   time. Additionally, maintaining proper posture and hand positioning */}
+        {/*   can prevent strain and increase comfort while typing. */}
+        {/* </p> */}
       </div>
       <div className="practice-container">
         <Timer timeLeft={timeLeft} />

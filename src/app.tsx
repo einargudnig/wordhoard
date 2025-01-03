@@ -5,6 +5,7 @@ import { Stats } from "./pages/stats";
 import { Practice } from "./pages/practice";
 import { Settings } from "./pages/settings";
 import { Writer } from "./components/writer";
+import { Editor } from "./components/new-writer";
 import {
   createRootRoute,
   createRoute,
@@ -27,7 +28,8 @@ const rootRoute = createRootRoute({
 const writerRoute = createRoute({
   getParentRoute: () => rootRoute,
   path: "/writer",
-  component: () => <Writer />,
+  // component: () => <Writer />,
+  compoent: () => <Editor />,
 });
 const statsRoute = createRoute({
   getParentRoute: () => rootRoute,
